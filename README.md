@@ -18,12 +18,12 @@ This project will have a tree, both visually and in memory, that stores the
 representation of files and directories on your computer's hard drive in the
 browser so that you can interact with it.
 
-![](https://appacademy-open-assets.s3-us-west-1.amazonaws.com/Module-Responsive-Design/response-design-projects/file-browser/responsive-design-file-browser.png)
+![](https://appacademy-open-assets.s3-us-west-1.amazonaws.com/Module-Responsive-Design/response-design-projects/file-browser/file-browser-final.gif)
 
 ## The starter project
 
 Download the starer project from
-https://github.com/appacademy-starters/responsive-design-file-browser-starter.git.
+https://github.com/appacademy-starters/responsive-design-file-browser-starter.
 It comes with a server that you will interact with from your code via `fetch`
 statements.
 
@@ -89,7 +89,7 @@ TODO: Explain final layout
 
 ## An API overview
 
-Your code will make calls an Application Programming Interface (API), which for
+Your code will make calls to an Application Programming Interface (API), which for
 this case, is just a fancy way of saying "a place to get data from". The
 following table shows the different ways that you can call the API. All URLs in
 the first column will be for the server http://localhost:3001. All of the paths
@@ -101,10 +101,8 @@ are relative to the **directory-browsed** directory.
 | /api/file/«file-path»  | GET       | Returns the contents of the file at «file-path»              |
 | /api/entry/«file-path» | PATCH     | Moves a file from one location to another                    |
 
-In each step of the project, it will go into depth about what you should do to
-interact with those API endpoints. But, here's just a quick example.
-
-For example, **directory-browsed** has the following entries to two levels deep.
+Each step of the project will go into depth about what you should do to
+interact with those API endpoints. For example, **directory-browsed** has the following entries to two levels deep.
 (There are a lot more files under **javascript-allonge-six/manuscript/**.)
 
 ```
@@ -117,28 +115,35 @@ directory-browsed/
     └── need-to-be-fixed
 ```
 
-Then, say you added the following HTML block to **your-browser.html**.
+Here's an example of how you would call the API to retrieve the contents of a
+directory.
+Let's say you added the following HTML block to **your-browser.html**.
 
 ```html
 <script>
-  fetch('/api/file/javascript-allonge-six/README.md')
-    .then(response => response.text())
-    .then(poem => console.log(poem));
+  fetch('/api/path/javascript-allonge-six/')
+    .then(response => response.json())
+    .then(filelist => console.log(filelist);
 </script>
 ```
 
-The server would get the path `/api/file/javascript-allonge-six/README.md` as
+The server would get the path `/api/path/javascript-allonge-six/` as
 part of your request.
 
-The `/api/file` part is there for the server to know that you're using the API
-and want it to look for a file at the path that comes after `/api/file/`.
+The `/api/path` part is there for the server to know that you're using the API
+and want it to look at the contents of a directory at the path that comes after
+`/api/path/`.
 
-The part that comes after `/api/file` is `/javascript-allonge-six/README.md`.
-The code looks in the **directory-browsed** directory for
-`/javascript-allonge-six/README.md`, finds it, and returns that content to your
-code where it will get printed to the console.
+The path that comes after `/api/path` is `/javascript-allonge-six/`.
+The server looks in the **directory-browsed** directory for
+`/javascript-allonge-six/`, finds it, and returns the list of files
+to your `fetch` call. Then we use the `response.json()` to grab the list of
+files in the directory, and finally, print it to the console.
 
-Whatever path you put after `/api/path`, it's going to try to read the contents
-for that file and return it to your code. If the file doesn't exist (or
-something bad happens), then you code will get an appropriate HTTP status code
+Whatever path you put after `/api/path`, it's going to try to read the list
+of files from that directory and return them. If the directory doesn't exist (or
+something bad happens), then your code will get an appropriate HTTP status code
 that indicates the error, like 404.
+
+>Remember that you will need to check `response.ok`
+>in `fetch` calls to catch things like 404 errors.)
