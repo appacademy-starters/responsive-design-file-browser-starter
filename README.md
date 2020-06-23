@@ -22,7 +22,7 @@ browser so that you can interact with it.
 
 ## The starter project
 
-Download the starer project from
+Download the starter project from
 https://github.com/appacademy-starters/responsive-design-file-browser-starter.
 It comes with a server that you will interact with from your code via `fetch`
 statements.
@@ -53,7 +53,7 @@ and information. That's what you're going to give them!
 The directory structure of the project looks like this.
 
 ```
-starer/
+starter/
 ├── directory-browsed/
 ├── server/
 └── your-code/
